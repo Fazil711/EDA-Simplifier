@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import csv, io
-from .forms import BarPlotForm
+from .forms import *
 
 def home(request):
 	template = 'EDA/dashboard.html'
@@ -31,3 +31,13 @@ def BarPlotFormPage(request):
 
 	context = {'form':form}
 	return render(request, 'EDA/bar_plot_form.html', context)
+
+def ScatterPlotFormPage(request):
+	form = ScatterPlotForm()
+	if request.method == 'POST':
+		form = ScatterPlotForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'EDA/scatter_plot_form.html', context)
