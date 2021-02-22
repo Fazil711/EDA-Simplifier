@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import csv, io
+from .forms import BarPlotForm
 
 def home(request):
 	template = 'EDA/dashboard.html'
@@ -20,4 +21,13 @@ def home(request):
 	# initialize list of lists
 	# Create the pandas DataFrame 
 	return render(request, template)
-	
+
+def BarPlotFormPage(request):
+	form = BarPlotForm()
+	if request.method == 'POST':
+		form = BarPlotForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'EDA/bar_plot_form.html', context)

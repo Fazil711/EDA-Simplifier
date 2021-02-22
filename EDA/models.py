@@ -2,7 +2,7 @@ from django.db import models
 import pandas as pd
 
 # Create your models here.
-class BarPlot(models.Model):
+class BarPlotModel(models.Model):
 	df = pd.read_csv('EDA/diamonds.csv')
 	single_list = df.columns
 	big_list = []
