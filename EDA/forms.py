@@ -10,3 +10,8 @@ class ScatterPlotForm(ModelForm):
 	class Meta:
 		model = ScatterPlotModel
 		fields = '__all__'
+
+class LinePlotForm(ModelForm):
+	class Meta:
+		model = LinePlotModel
+		fields = '__all__'

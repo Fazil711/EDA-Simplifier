@@ -41,3 +41,13 @@ def ScatterPlotFormPage(request):
 
 	context = {'form':form}
 	return render(request, 'EDA/scatter_plot_form.html', context)
+
+def LinePlotFormPage(request):
+	form = LinePlotForm()
+	if request.method == 'POST':
+		form = LinePlotForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'EDA/line_plot_form.html', context)
