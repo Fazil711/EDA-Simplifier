@@ -51,3 +51,33 @@ def LinePlotFormPage(request):
 
 	context = {'form':form}
 	return render(request, 'EDA/line_plot_form.html', context)
+
+def BoxPlotFormPage(request):
+	form = BoxPlotForm()
+	if request.method == 'POST':
+		form = BoxPlotForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'EDA/box_plot_form.html', context)
+
+def CountPlotFormPage(request):
+	form = CountPlotForm()
+	if request.method == 'POST':
+		form = CountPlotForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'EDA/count_plot_form.html', context)
+
+def HistogramPlotFormPage(request):
+	form = HistogramPlotForm()
+	if request.method == 'POST':
+		form = HistogramPlotForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'EDA/histogram_plot_form.html', context)
