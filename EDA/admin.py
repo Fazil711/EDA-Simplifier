@@ -5,3 +5,6 @@ from .models import *
 admin.site.register(BarPlotModel)
 admin.site.register(ScatterPlotModel)
 admin.site.register(LinePlotModel)
+admin.site.register(CountPlotModel)
+admin.site.register(HistogramPlotModel)
+admin.site.register(BoxPlotModel)
