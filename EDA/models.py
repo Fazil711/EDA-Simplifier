@@ -110,3 +110,64 @@ class LinePlotModel(models.Model):
 	
 	def __str__(self):
 		return 'Line Plot'
+	
+class CountPlotModel(models.Model):
+	df = accept_csv()
+	name = 'Count Plot'
+	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
+	estimator = models.CharField(max_length=200, default='none', choices=estimator_tuples())
+	saturation = models.FloatField(null=True, blank=True)
+	palette = models.CharField(max_length=200, blank=True, null=True, choices=palette_choices())
+	dodge = models.CharField(max_length = 200, null = True, choices=bool_choices())
+	
+	def __str__(self):
+		return 'Count Plot'
+
+class BoxPlotModel(models.Model):
+	df = accept_csv()
+	name = 'Box Plot'
+	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
+	estimator = models.CharField(max_length=200, default='none', choices=estimator_tuples())
+	saturation = models.FloatField(null=True, blank=True)
+	palette = models.CharField(max_length=200, blank=True, null=True, choices=palette_choices())
+	dodge = models.CharField(max_length = 200, null = True, choices=bool_choices())
+	
+	def __str__(self):
+		return 'Box Plot'
+
+class HistogramPlotModel(models.Model):
+	df = accept_csv()
+	stat_choices = (
+		('count', 'count'),
+		('frequency', 'frequency'),
+		('density', 'density'),
+		('probability', 'probability'),
+		)
+	multiple_choices = (
+		('layer', 'layer'),
+		('dodge', 'dodge'),
+		('stack', 'stack'),
+		('fill', 'fill'),
+		)
+	element_choices = (
+		('bar', 'bar'),
+		('step', 'step'),
+		('poly', 'poly'),
+		)
+	name = 'Histogram Plot'
+	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
+	palette = models.CharField(max_length=200, blank=True, null=True, choices=palette_choices())
+	legend = models.CharField(max_length=200, default='auto', choices=legend_choices())
+	fillit = models.CharField(max_length = 200, null = True, choices=bool_choices())
+	stat = models.CharField(max_length=200, null=True, choices=stat_choices)
+	multiple = models.CharField(max_length=200, null=True, choices=multiple_choices)
+	element = models.CharField(max_length=200, null=True, choices=element_choices)
+	
+	def __str__(self):
+		return 'Histogram Plot'
