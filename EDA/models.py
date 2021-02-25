@@ -54,7 +54,7 @@ def bool_choices():
 # Create your models here.
 class BarPlotModel(models.Model):
 	df = accept_csv()
-	name = 'Bar Plot'
+	name = models.CharField(max_length=200, default="Bar Plot", primary_key=True)
 	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
 	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
 	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
@@ -69,7 +69,7 @@ class BarPlotModel(models.Model):
 	ci = models.IntegerField(default=95)
 	
 	def __str__(self):
-		return 'Bar Plot'
+		return self.name
 
 class ScatterPlotModel(models.Model):
 	df = accept_csv()
@@ -78,8 +78,8 @@ class ScatterPlotModel(models.Model):
 	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
 	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
 	estimator = models.CharField(max_length=200, default='none', choices=estimator_tuples())
-	style = models.CharField(max_length=200, null=True, choices=feature_tuples(df)) #Different shapes of scattered points
-	size = models.CharField(max_length=200, null=True, choices=feature_tuples(df)) #Different sizes of scattered points
+	style = models.CharField(max_length=200, null=True, blank=True, choices=feature_tuples(df)) #Different shapes of scattered points
+	size = models.CharField(max_length=200, null=True, blank=True, choices=feature_tuples(df)) #Different sizes of scattered points
 	palette = models.CharField(max_length=200, blank=True, null=True, choices=palette_choices())
 	legend = models.CharField(max_length=200, default='auto', choices=legend_choices())
 	n_boot = models.IntegerField(null=True, blank=True) # number of iter to cal conf int

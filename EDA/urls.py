@@ -10,4 +10,5 @@ urlpatterns = [
     path('count_plot_form/', views.CountPlotFormPage, name='count_plot_form_page'),
     path('histogram_plot_form/', views.HistogramPlotFormPage, name='histogram_plot_form_page'),
     path('box_plot_form/', views.BoxPlotFormPage, name='box_plot_form_page'),
+    path('delete_graph/', views.deleteGraph, name="delete_graph"),
 ]

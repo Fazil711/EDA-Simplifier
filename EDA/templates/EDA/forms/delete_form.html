@@ -1,0 +1,10 @@
+{% extends 'EDA/main.html' %}
+{% load static %}
+{% block content %}
+
+<form method="POST" action="">
+	{% csrf_token %}
+	<input type="submit" name="Submit">
+</form>
+
+{% endblock %}

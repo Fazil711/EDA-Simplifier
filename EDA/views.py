@@ -28,9 +28,10 @@ def BarPlotFormPage(request):
 		form = BarPlotForm(request.POST)
 		if form.is_valid():
 			form.save()
+			redirect('/')
 
 	context = {'form':form}
-	return render(request, 'EDA/bar_plot_form.html', context)
+	return render(request, 'EDA/forms/bar_plot_form.html', context)
 
 def ScatterPlotFormPage(request):
 	form = ScatterPlotForm()
@@ -38,9 +39,10 @@ def ScatterPlotFormPage(request):
 		form = ScatterPlotForm(request.POST)
 		if form.is_valid():
 			form.save()
+			return redirect('/')
 
 	context = {'form':form}
-	return render(request, 'EDA/scatter_plot_form.html', context)
+	return render(request, 'EDA/forms/scatter_plot_form.html', context)
 
 def LinePlotFormPage(request):
 	form = LinePlotForm()
@@ -48,9 +50,10 @@ def LinePlotFormPage(request):
 		form = LinePlotForm(request.POST)
 		if form.is_valid():
 			form.save()
+			return redirect('/')
 
 	context = {'form':form}
-	return render(request, 'EDA/line_plot_form.html', context)
+	return render(request, 'EDA/forms/line_plot_form.html', context)
 
 def BoxPlotFormPage(request):
 	form = BoxPlotForm()
@@ -58,9 +61,10 @@ def BoxPlotFormPage(request):
 		form = BoxPlotForm(request.POST)
 		if form.is_valid():
 			form.save()
+			return redirect('/')
 
 	context = {'form':form}
-	return render(request, 'EDA/box_plot_form.html', context)
+	return render(request, 'EDA/forms/box_plot_form.html', context)
 
 def CountPlotFormPage(request):
 	form = CountPlotForm()
@@ -68,9 +72,10 @@ def CountPlotFormPage(request):
 		form = CountPlotForm(request.POST)
 		if form.is_valid():
 			form.save()
+			return redirect('/')
 
 	context = {'form':form}
-	return render(request, 'EDA/count_plot_form.html', context)
+	return render(request, 'EDA/forms/count_plot_form.html', context)
 
 def HistogramPlotFormPage(request):
 	form = HistogramPlotForm()
@@ -78,6 +83,16 @@ def HistogramPlotFormPage(request):
 		form = HistogramPlotForm(request.POST)
 		if form.is_valid():
 			form.save()
+			return redirect('/')
 
 	context = {'form':form}
-	return render(request, 'EDA/histogram_plot_form.html', context)
+	return render(request, 'EDA/forms/histogram_plot_form.html', context)
+
+def deleteGraph(request):
+	graph = BarPlotModel.objects.get(name= 'Bar Plot')
+	if request.method == "POST" :
+		print('HEyyyy')
+		graph.delete()
+		return redirect('/')
+	context = {'graph':graph}
+	return render(request, 'EDA/forms/delete_form.html', context)
