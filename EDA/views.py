@@ -9,34 +9,41 @@ from .forms import *
 from .models import *
 from os.path import dirname, abspath
 
+def save_graph(plot):
+	fig = plot.get_figure()
+	d = dirname(dirname(abspath(__file__)))
+	d += '\static\images\out.png'
+	fig.savefig(d)
+
 def make_graph(a, num):
 	df = pd.read_csv('EDA/Diamonds.csv')
-	li = []
-	j = 1
+	li, j = [], 1
 	for i in a:
 		j += 1
 		if(a[i]==''):
 			li.append(None)
 		else:
 			li.append(a[i])
+	print(a)
+	print(li)
+
 	if(num == 1):
-		li[6] = float(li[6])
-		li[6] = max(min(1, li[6]), 0)
-		li[8] = float(li[8])
-		li[8] = max(min(3, li[8]), 1)
-		li[9] = float(li[9])
-		li[9] = max(min(0.4, li[9]), 0)
-		li[11] = int(li[11])
-		li[11] = max(1, li[11])
-		li[13] = int(li[13])
-		li[13] = max(min(100, li[13]), 1)
-		plot = sns.barplot(x=str(li[2]), y=str(li[3]), hue=li[4], saturation=float(li[6]), errcolor=li[7], 
-			errwidth=float(li[8]), capsize=float(li[9]), color=li[10], n_boot=int(li[11]), palette=li[12], ci=int(li[13]), 
+		li[5] = max(min(1, float(li[5])), 0)
+		li[7] = max(min(3, float(li[7])), 1)
+		li[8] = max(min(0.4, float(li[8])), 0)
+		li[10] = max(1, int(li[10]))
+		li[12] = max(min(99, int(li[12])), 1)
+		plot = sns.barplot(x=str(li[2]), y=str(li[3]), hue=li[4], saturation=li[5], errcolor=li[6], 
+			errwidth=li[7], capsize=li[8], color=li[9], n_boot=li[10], palette=li[11], ci=li[12], 
 			data=df)
-		fig = plot.get_figure()
-		d = dirname(dirname(abspath(__file__))) # /home/kristina/desire-directory
-		d += '\static\images\output.png'
-		fig.savefig(d)
+		save_graph(plot)
+	
+
+	if(num == 2):
+		li[10] = min(99, max(1, int(li[10])))
+		plot = sns.scatterplot(x=li[2], y=li[3], hue=li[4], style=li[5], size=li[6], 
+			palette=li[7], legend=li[8], n_boot=li[9], ci=li[10], data=df)
+		save_graph(plot)
 
 def home(request):
 	template = 'EDA/dashboard.html'
@@ -73,7 +80,11 @@ def ScatterPlotFormPage(request):
 	if request.method == 'POST':
 		form = ScatterPlotForm(request.POST)
 		if form.is_valid():
-			form.save()
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 2)
+			#form.delete()
 			return redirect('/')
 
 	context = {'form':form}

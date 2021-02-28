@@ -58,7 +58,6 @@ class BarPlotModel(models.Model):
 	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df), default='color')
 	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df), default='price')
 	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
-	#estimator = models.CharField(max_length=200, default='mean', blank=True, choices=estimator_tuples())
 	saturation = models.FloatField(null=True, blank=True, default=0.75) #0 to 1 1 = dark
 	errcolor = models.CharField(max_length=200, default='0.26', blank=True) #0 to 1 1 = white
 	errwidth = models.FloatField(max_length=200, null=True, blank=True, default=3) # 1-3 recomm
@@ -73,16 +72,15 @@ class BarPlotModel(models.Model):
 
 class ScatterPlotModel(models.Model):
 	df = accept_csv()
-	name = 'Scatter Plot'
-	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
-	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	name = models.CharField(max_length=200, default="Scatter Plot", primary_key=True)
+	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df), default='color')
+	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df), default='price')
 	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
-	#estimator = models.CharField(max_length=200, default='none', choices=estimator_tuples())
 	style = models.CharField(max_length=200, null=True, blank=True, choices=feature_tuples(df)) #Different shapes of scattered points
 	size = models.CharField(max_length=200, null=True, blank=True, choices=feature_tuples(df)) #Different sizes of scattered points
 	palette = models.CharField(max_length=200, blank=True, null=True, choices=palette_choices())
 	legend = models.CharField(max_length=200, default='auto', choices=legend_choices())
-	n_boot = models.IntegerField(null=True, blank=True) # number of iter to cal conf int
+	n_boot = models.IntegerField(default=1000) # number of iter to cal conf int
 	ci = models.IntegerField(default=95)
 	
 	def __str__(self):
