@@ -12,7 +12,7 @@ from os.path import dirname, abspath
 def save_graph(plot):
 	fig = plot.get_figure()
 	d = dirname(dirname(abspath(__file__)))
-	d += '\static\images\out.png'
+	d += '\static\images\cc.png'
 	fig.savefig(d)
 
 def make_graph(a, num):
@@ -45,6 +45,45 @@ def make_graph(a, num):
 			palette=li[7], legend=li[8], n_boot=li[9], ci=li[10], data=df)
 		save_graph(plot)
 
+	if(num == 3):
+		li[8] = min(99, max(1, int(li[8])))
+		if(li[9] == 'False'):
+			li[9] = bool(li[9])
+			li[9] = False
+		else:
+			li[9] = bool(li[9])
+			li[9] = True
+		plot = sns.lineplot(x=li[2], y=li[3], hue=li[4], style=li[5], size=li[6],
+			n_boot=li[7], ci=li[8], sort=li[9], err_style=li[10], legend=li[11], palette=li[12],
+			data=df)
+		save_graph(plot)
+
+	if(num == 4):
+		li[4] = min(99, max(1, float(li[4])))
+		plot = sns.countplot(x=li[2], hue=li[3], saturation=li[4], palette=li[5], dodge=li[6],
+			data=df)
+		save_graph(plot)
+
+	if(num == 5):
+		if(li[5] != 'auto'):
+			li[5] = int(li[5])
+		if(li[7]=='True'):
+			li[7] = True
+		else:
+			li[7] = False
+		if(li[10]=='True'):
+			li[10] = True
+		else:
+			li[10] = False
+		if(li[11]=='True'):
+			li[11] = True
+		else:
+			li[11] = False
+		plot = sns.histplot(x=li[2], hue=li[3], stat=li[4], bins=li[5],binwidth=li[6], 
+			discrete=li[7], palette=li[8], legend=li[9], fill=li[10], kde=li[11], multiple=li[12], 
+			element=li[13], data=df)
+		save_graph(plot)
+
 def home(request):
 	template = 'EDA/dashboard.html'
 	if request.method == 'GET':
@@ -57,7 +96,7 @@ def home(request):
 	df.to_csv(r"C:\Users\OBAID\OneDrive\Desktop\EDA-Simplifier\EDA\file1.csv")
 	print(io_string.read())
 	# initialize list of lists
-	# Create the pandas DataFrame 
+	# Create the pandas DataFrame
 	return render(request, template)
 
 def BarPlotFormPage(request):
@@ -95,29 +134,26 @@ def LinePlotFormPage(request):
 	if request.method == 'POST':
 		form = LinePlotForm(request.POST)
 		if form.is_valid():
-			form.save()
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 3)
+			#form.delete()
 			return redirect('/')
 
 	context = {'form':form}
 	return render(request, 'EDA/forms/line_plot_form.html', context)
-
-def BoxPlotFormPage(request):
-	form = BoxPlotForm()
-	if request.method == 'POST':
-		form = BoxPlotForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect('/')
-
-	context = {'form':form}
-	return render(request, 'EDA/forms/box_plot_form.html', context)
 
 def CountPlotFormPage(request):
 	form = CountPlotForm()
 	if request.method == 'POST':
 		form = CountPlotForm(request.POST)
 		if form.is_valid():
-			form.save()
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 4)
+			#form.delete()
 			return redirect('/')
 
 	context = {'form':form}
@@ -128,11 +164,30 @@ def HistogramPlotFormPage(request):
 	if request.method == 'POST':
 		form = HistogramPlotForm(request.POST)
 		if form.is_valid():
-			form.save()
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 5)
+			#form.delete()
 			return redirect('/')
 
 	context = {'form':form}
 	return render(request, 'EDA/forms/histogram_plot_form.html', context)
+
+def BoxPlotFormPage(request):
+	form = BoxPlotForm()
+	if request.method == 'POST':
+		form = BoxPlotForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 6)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/forms/box_plot_form.html', context)
 
 def deleteGraph(request):
 	graph = BarPlotModel.objects.get(name= 'Bar Plot')
