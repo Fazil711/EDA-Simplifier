@@ -159,12 +159,15 @@ class HistogramPlotModel(models.Model):
 class BoxPlotModel(models.Model):
 	df = accept_csv()
 	name = models.CharField(max_length=200, default="Box Plot", primary_key=True)
-	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
-	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df))
+	x = models.CharField(max_length=200, null=True, choices=feature_tuples(df), default='cut')
+	y = models.CharField(max_length=200, null=True, choices=feature_tuples(df), default='price')
 	hue = models.CharField(max_length=200, null=True, choices=feature_tuples(df), blank=True)
-	saturation = models.FloatField(null=True, blank=True)
+	saturation = models.FloatField(default=0.75)
 	palette = models.CharField(max_length=200, blank=True, null=True, choices=palette_choices())
-	dodge = models.CharField(max_length = 200, null = True, choices=bool_choices())
+	width = models.FloatField(default=0.8)
+	dodge = models.CharField(max_length=200, null=True, choices=bool_choices(), default='True')
+	fliersize = models.FloatField(default=5)
+	linewidth = models.FloatField(null=True, blank=True)
 	
 	def __str__(self):
 		return 'Box Plot'

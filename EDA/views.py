@@ -36,8 +36,7 @@ def make_graph(a, num):
 		plot = sns.barplot(x=str(li[2]), y=str(li[3]), hue=li[4], saturation=li[5], errcolor=li[6], 
 			errwidth=li[7], capsize=li[8], color=li[9], n_boot=li[10], palette=li[11], ci=li[12], 
 			data=df)
-		save_graph(plot)
-	
+		save_graph(plot)	
 
 	if(num == 2):
 		li[10] = min(99, max(1, int(li[10])))
@@ -59,7 +58,7 @@ def make_graph(a, num):
 		save_graph(plot)
 
 	if(num == 4):
-		li[4] = min(99, max(1, float(li[4])))
+		li[4] = min(1, max(0, float(li[4])))
 		plot = sns.countplot(x=li[2], hue=li[3], saturation=li[4], palette=li[5], dodge=li[6],
 			data=df)
 		save_graph(plot)
@@ -82,6 +81,18 @@ def make_graph(a, num):
 		plot = sns.histplot(x=li[2], hue=li[3], stat=li[4], bins=li[5],binwidth=li[6], 
 			discrete=li[7], palette=li[8], legend=li[9], fill=li[10], kde=li[11], multiple=li[12], 
 			element=li[13], data=df)
+		save_graph(plot)
+
+	if(num == 6):
+		if(li[8]=='True'):
+			li[8] = True
+		else:
+			li[8] = False
+		li[5] = min(1, max(0, float(li[5])))
+		li[7] = float(li[7])
+		li[9] = float(li[9])
+		plot = sns.boxplot(x=li[2], y=li[3], hue=li[4], saturation=li[5], palette=li[6], width=li[7],
+			dodge=li[8], fliersize=li[9], linewidth=li[10], data=df)
 		save_graph(plot)
 
 def home(request):
