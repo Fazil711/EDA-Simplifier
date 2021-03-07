@@ -110,6 +110,97 @@ def home(request):
 	# Create the pandas DataFrame
 	return render(request, template)
 
+def BarPlotImageFormPage(request):
+	form = BarPlotImageForm()
+	if request.method == 'POST':
+		form = BarPlotImageForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 1)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/graphs/BarPlotImage.html', context)
+
+def ScatterPlotImageFormPage(request):
+	form = ScatterPlotImageForm()
+	if request.method == 'POST':
+		form = ScatterPlotImageForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 2)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/graphs/ScatterPlotImage.html', context)
+
+def LinePlotImageFormPage(request):
+	form = LinePlotImageForm()
+	if request.method == 'POST':
+		form = LinePlotImageForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 3)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/graphs/LinePlotImage.html', context)
+
+def CountPlotImageFormPage(request):
+	form = CountPlotImageForm()
+	if request.method == 'POST':
+		form = CountPlotImageForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 4)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/graphs/CountPlotImage.html', context)
+
+def HistogramPlotImageFormPage(request):
+	form = HistogramPlotImageForm()
+	if request.method == 'POST':
+		form = HistogramPlotImageForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 5)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/graphs/HistogramPlotImage.html', context)
+
+def BoxPlotImageFormPage(request):
+	form = BoxPlotImageForm()
+	if request.method == 'POST':
+		form = BoxPlotImageForm(request.POST)
+		if form.is_valid():
+			#form.save()
+			context = {'form':form}
+			#return render(request, 'EDA/BarPlotFormPage.html', context)
+			make_graph(request.POST, 6)
+			#form.delete()
+			return redirect('/')
+
+	context = {'form':form}
+	return render(request, 'EDA/graphs/BoxPlotImage.html', context)
+
+
 def BarPlotFormPage(request):
 	form = BarPlotForm()
 	if request.method == 'POST':
