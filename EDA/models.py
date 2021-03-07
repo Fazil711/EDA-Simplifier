@@ -171,3 +171,39 @@ class BoxPlotModel(models.Model):
 	
 	def __str__(self):
 		return 'Box Plot'
+	
+class BarPlotImageModel(models.Model):
+	
+	
+	def __str__(self):
+		return self.name
+
+class ScatterPlotImageModel(models.Model):
+	
+	
+	def __str__(self):
+		return self.name
+
+class LinePlotImageModel(models.Model):
+	
+	
+	def __str__(self):
+		return self.name
+
+class CountPlotImageModel(models.Model):
+	
+	
+	def __str__(self):
+		return self.name
+
+class HistogramPlotImageModel(models.Model):
+	
+	
+	def __str__(self):
+		return self.name
+
+class BoxPlotImageModel(models.Model):
+	
+	
+	def __str__(self):
+		return self.name
