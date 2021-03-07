@@ -4,8 +4,12 @@
 
 <form method="POST" action="">
 	{% csrf_token %}
+	<table>
 	{{form}}
-	<input type="submit" name="Submit">
+	</table>
+	<div>
+	<a class="btn btn-outline-info" href="{% url 'scatter_plot_image_form_page' %}">Submit</a>
+	</div>
 </form>
 
 {% endblock %}
